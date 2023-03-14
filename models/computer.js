@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const computer_schema = mongoose.Schema({
-    _id: false,
     serail_number : {type: String, require: true, unique: true},
     brand: {type: String, require: true},
     model: {type: String, require: true},
