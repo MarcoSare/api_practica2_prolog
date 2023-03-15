@@ -6,6 +6,8 @@ const user_schema = mongoose.Schema({
     gender: {type: String, require: true},
     telephone: {type: String, require: true},
     email: {type: String, require: true},
+    password: {type: String, require: true},
+    type: {type: String, require: true},
 }, {'collection':'user'})
 
 const user = mongoose.model('user', user_schema);

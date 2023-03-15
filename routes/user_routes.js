@@ -29,6 +29,8 @@ router.post("/user", async (req, res) => {
         gender: req.body.gender,
         telephone: req.body.telephone,
         email: req.body.email,
+        password: req.body.password,
+        type: req.body.type,
     });
     const saved = await newUser.save();
     if (saved) return res.send(JSON.parse('{"message" : "Successful"}'));
@@ -49,6 +51,8 @@ router.put("/user/:id", async (req, res) => {
         gender: req.body.gender,
         telephone: req.body.telephone,
         email: req.body.email,
+        password: req.body.password,
+        type: req.body.type,
       }
     );
     return res.send(JSON.parse('{"message" : "Successful"}'));
