@@ -13,13 +13,13 @@ router.get("/user", async (req, res) => {
 });
 
 router.get("/user/:id", async (req, res) => {
-    try {
-      const users = await user.findOne({ _id: req.params.id });
-      res.send(users);
-    } catch (error) {
-      return res.send(error.message);
-    }
-  });
+  try {
+    const users = await user.findOne({ _id: req.params.id });
+    res.send(users);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
 
 router.post("/user", async (req, res) => {
   try {
