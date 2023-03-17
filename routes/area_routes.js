@@ -12,6 +12,15 @@ router.get("/areas", async (req, res) => {
   }
 });
 
+router.get("/areas/:id", async (req, res) => {
+  try {
+    const areas = await area.findOne({ _id: req.params.id });
+    res.send(areas);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/areas", async (req, res) => {
   try {
     const newArea = new area({
