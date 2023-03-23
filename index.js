@@ -1,12 +1,14 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const cors = require('cors')
 const connection = require('./connection')
 const area_routes = require('./routes/area_routes')
 const user_routes = require('./routes/user_routes')
 const computer_routes = require('./routes/computer_routes')
 
 app.use(express.json())
+app.use(cors())
 app.use('/api/v1', area_routes)
 app.use('/api/v1', user_routes)
 app.use('/api/v1', computer_routes)
