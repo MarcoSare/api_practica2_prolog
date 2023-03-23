@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 3001
 const cors = require('cors')
 const connection = require('./connection')
 const area_routes = require('./routes/area_routes')

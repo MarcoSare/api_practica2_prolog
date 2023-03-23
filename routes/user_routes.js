@@ -21,6 +21,15 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+router.get("/user_by_area/:id", async (req, res) => {
+  try {
+    const users = await user.find({ id_area: req.params.id });
+    res.send(users);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/user", async (req, res) => {
   try {
     const newUser = new user({
@@ -31,6 +40,7 @@ router.post("/user", async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         type: req.body.type,
+        id_area: req.body.id_area
     });
     const saved = await newUser.save();
     if (saved) return res.send(JSON.parse('{"message" : "Successful"}'));
@@ -53,6 +63,7 @@ router.put("/user/:id", async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         type: req.body.type,
+        id_area: req.body.id_area
       }
     );
     return res.send(JSON.parse('{"message" : "Successful"}'));

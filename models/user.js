@@ -8,6 +8,7 @@ const user_schema = mongoose.Schema({
     email: {type: String, require: true},
     password: {type: String, require: true},
     type: {type: String, require: true},
+    id_area: {type: mongoose.Types.ObjectId, ref:"area"},
 }, {'collection':'user'})
 
 const user = mongoose.model('user', user_schema);
