@@ -14,6 +14,15 @@ router.get("/maintenance", async (req, res) => {
   }
 });
 
+router.get("/maintenance_by_support/:id", async (req, res) => {
+  try {
+    const maintenances = await maintenance.find({});
+    res.send(maintenances);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/maintenance", async (req, res) => {
     try {
       const newMaintenance = new maintenance({
@@ -21,7 +30,8 @@ router.post("/maintenance", async (req, res) => {
         id_computer: req.body.id_computer,
         date: req.body.date,
         support: req.body.support,
-        type: req.body.type
+        type: req.body.type,
+        is_completed: req.body.is_completed
       });
       const saved = await newMaintenance.save();
       if (saved) 
@@ -42,7 +52,8 @@ router.put("/maintenance/:id", async (req, res) => {
         id_computer: req.body.id_computer,
         date: req.body.date,
         support: req.body.support,
-        type: req.body.type
+        type: req.body.type,
+        is_completed: req.body.is_completed
       }
     );
     return res.send(JSON.parse('{"message" : "Successful"}'));
@@ -53,17 +64,8 @@ router.put("/maintenance/:id", async (req, res) => {
 
 router.delete("/maintenance/:id", async (req, res) => {
   try {
-
-    const maint = await maintenance.findOne({ _id: req.params.id });
-
-    const saved = await maint.save();
-      if (saved) 
-        return res.send(JSON.parse('{"message" : "Successful"}'));
-      else
-        return res.status(400).send(JSON.parse('{"message" : "No successful"}'));
-
     const deleteMaintenance = await maintenance.deleteOne({ _id: req.params.id });
-    res.send(JSON.parse('{"message" : "Successful"}'));
+    return res.send(JSON.parse('{"message" : "Successful"}'));
   } catch (error) {
     res.send(error);
   }
@@ -71,8 +73,8 @@ router.delete("/maintenance/:id", async (req, res) => {
 
 router.get("/historic", async (req, res) => {
   try {
-    const historic = await historic.find({});
-    res.send(historic);
+    const history = await historic.find({});
+    res.send(history);
   } catch (error) {
     return res.send(error.message);
   }

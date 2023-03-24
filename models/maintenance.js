@@ -6,6 +6,7 @@ const maintenance_schema = mongoose.Schema({
     date: {type: String, require: true},
     support: {type: mongoose.Types.ObjectId, ref:"user"},
     type: {type: String, require: true},
+    is_completed: {type: Boolean},
 }, {'collection':'maintenance'})
 
 const maintenance = mongoose.model('maintenance', maintenance_schema);
