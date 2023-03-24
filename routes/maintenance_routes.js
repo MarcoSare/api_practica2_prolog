@@ -1,6 +1,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const router = express.Router();
+const user = require("../models/user");
 const maintenance = require("../models/maintenance");
 const historic = require("../models/historic");
 
@@ -16,8 +17,10 @@ router.get("/maintenance", async (req, res) => {
 
 router.get("/maintenance_by_support/:id", async (req, res) => {
   try {
-    const maintenances = await maintenance.find({});
-    res.send(maintenances);
+    const maintenances = await maintenance.find({ support: req.params.id });
+    const users = await user.find({ _id: req.params.id });
+    hehe = {maintenances, users}
+    res.send(hehe);
   } catch (error) {
     return res.send(error.message);
   }
