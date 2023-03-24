@@ -1,9 +1,11 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const router = express.Router();
+const computer = require("../models/computer");
 const user = require("../models/user");
 const maintenance = require("../models/maintenance");
 const historic = require("../models/historic");
+
 
 
 router.get("/maintenance", async (req, res) => {
@@ -18,9 +20,25 @@ router.get("/maintenance", async (req, res) => {
 router.get("/maintenance_by_support/:id", async (req, res) => {
   try {
     const maintenances = await maintenance.find({ support: req.params.id });
-    const users = await user.find({ _id: req.params.id });
-    hehe = {maintenances, users}
-    res.send(hehe);
+    //const users = await user.findOne({ _id: req.params.id });
+    console.log("sdf")
+    const newArray = maintenances.map(async (item)=>{
+      const userID = await computer.findById(item.id_computer).select('id_user')
+      const userName = await user.findById(userID.id_user).select('first_name last_name')
+      const OneRegister =  {
+        id_area: item.id_area,
+        id_computer: item.id_computer,
+        date: item.date,
+        support: item.support,
+        type: item.type,
+        user: (userName.first_name + ' ' + userName.last_name)
+    }
+    return OneRegister
+    })
+    
+    Promise.all(newArray).then(data=>{
+      res.send(data)
+    })
   } catch (error) {
     return res.send(error.message);
   }
