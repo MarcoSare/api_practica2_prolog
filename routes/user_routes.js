@@ -30,6 +30,15 @@ router.get("/user_by_area/:id", async (req, res) => {
   }
 });
 
+router.get("/user_by_type/:type", async (req, res) => {
+  try {
+    const users = await user.find({ type: req.params.type });
+    res.send(users);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/user", async (req, res) => {
   try {
     const newUser = new user({
@@ -81,8 +90,6 @@ router.delete("/user/:id", async (req, res) => {
   }
 });
 
-
-
 router.post("/login", async (req, res) => {
   try {
     const log = await user.findOne(
@@ -97,8 +104,5 @@ router.post("/login", async (req, res) => {
     res.send(error);
   }
 });
-
-
-
 
 module.exports = router;
