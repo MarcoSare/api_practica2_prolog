@@ -81,4 +81,24 @@ router.delete("/user/:id", async (req, res) => {
   }
 });
 
+
+
+router.post("/login", async (req, res) => {
+  try {
+    const log = await user.findOne(
+      //{email: "19030260@itcelaya.edu.mx", password: "1234"}
+      {
+        email: req.body.email,
+        password: req.body.password
+      }
+    );
+    return res.send(log);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
+
+
 module.exports = router;
