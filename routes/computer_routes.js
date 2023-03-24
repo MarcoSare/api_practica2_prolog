@@ -21,6 +21,15 @@ router.get("/computer/:id", async (req, res) => {
   }
 });
 
+router.get("/computer_by_user/:id", async (req, res) => {
+  try {
+    const computers = await computer.find({ id_user: req.params.id });
+    res.send(computers);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/computer", async (req, res) => {
   try {
     const newComputer = new computer({
