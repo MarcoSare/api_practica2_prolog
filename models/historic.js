@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
-const maintenance_schema = mongoose.Schema({
+const historic_schema = mongoose.Schema({
     id_area: {type: mongoose.Types.ObjectId, ref:"area"},
     id_computer: {type: mongoose.Types.ObjectId, ref:"computer"},
     date: {type: String, require: true},
     support: {type: mongoose.Types.ObjectId, ref:"user"},
-}, {'collection':'maintenance'})
+}, {'collection':'historic'})
 
-const maintenance = mongoose.model('maintenance', maintenance_schema);
-module.exports = maintenance
+const historic = mongoose.model('historic', historic_schema);
+module.exports = historic

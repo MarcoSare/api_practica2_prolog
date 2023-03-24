@@ -15,15 +15,14 @@ router.get("/maintenance", async (req, res) => {
 router.post("/maintenance", async (req, res) => {
     try {
       const newMaintenance = new maintenance({
-          id_area: req.body.id_area,
-          id_computer: req.body.id_computer,
-          id_user: req.body.id_user,
-          email: req.body.email,
-          date: req.body.date,
-          person: req.body.person
+        id_area: req.body.id_area,
+        id_computer: req.body.id_computer,
+        date: req.body.date,
+        support: req.body.support
       });
       const saved = await newMaintenance.save();
-      if (saved) return res.send(JSON.parse('{"message" : "Successful"}'));
+      if (saved) 
+        return res.send(JSON.parse('{"message" : "Successful"}'));
       else
         return res.status(400).send(JSON.parse('{"message" : "No successful"}'));
     } catch (error) {
@@ -38,10 +37,8 @@ router.put("/maintenance/:id", async (req, res) => {
       {
         id_area: req.body.id_area,
         id_computer: req.body.id_computer,
-        id_user: req.body.id_user,
-        email: req.body.email,
         date: req.body.date,
-        person: req.body.person
+        support: req.body.support
       }
     );
     return res.send(JSON.parse('{"message" : "Successful"}'));
