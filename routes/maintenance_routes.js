@@ -27,10 +27,12 @@ router.get("/maintenance_by_support/:id", async (req, res) => {
     const newArray = maintenances.map(async (item)=>{
       const userID = await computer.findById(item.id_computer).select('id_user')
       const userName = await user.findById(userID.id_user).select('first_name last_name')
+      const areaName = await area.findById(item.id_area)
       const OneRegister =  {
-        id_area: item.id_area,
+        id_area: areaName.name,
         id_computer: item.id_computer,
         date: item.date,
+        is_completed : item.is_completed,
         support: item.support,
         type: item.type,
         user: (userName.first_name + ' ' + userName.last_name)
@@ -89,9 +91,10 @@ router.put("/maintenance/:id", async (req, res) => {
 router.put("/maintenance_complete/:id", async (req, res) => {
   try {
     //var todayDate = new Date().toLocaleDateString('en-US');
-    const maintenances = await maintenance.findOne({ _id: req.params.id });
+    const maintenances = await maintenance.findOne({ id_computer: req.params.id });
+    console.log(maintenances);
     const updateMaintenance = await maintenance.updateOne(
-      { _id: req.params.id },
+      { id_computer: req.params.id },
       {
         id_area: maintenances.id_area,
         id_computer: maintenances.id_computer,
