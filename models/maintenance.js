@@ -4,6 +4,8 @@ const maintenance_schema = mongoose.Schema({
     id_area: {type: mongoose.Types.ObjectId, ref:"area"},
     id_computer: {type: mongoose.Types.ObjectId, ref:"computer"},
     date: {type: String, require: true},
+    date_complete: {type: String},
+    description : {type: String},
     support: {type: mongoose.Types.ObjectId, ref:"user"},
     type: {type: String, require: true},
     is_completed: {type: Boolean},

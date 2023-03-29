@@ -85,6 +85,30 @@ router.put("/maintenance/:id", async (req, res) => {
   }
 });
 
+
+router.put("/maintenance_complete/:id", async (req, res) => {
+  try {
+    //var todayDate = new Date().toLocaleDateString('en-US');
+    const maintenances = await maintenance.findOne({ _id: req.params.id });
+    const updateMaintenance = await maintenance.updateOne(
+      { _id: req.params.id },
+      {
+        id_area: maintenances.id_area,
+        id_computer: maintenances.id_computer,
+        date: maintenances.date,
+        support: maintenances.support,
+        type: maintenances.type,
+        is_completed: true,
+        date_complete : new Date().toLocaleDateString('en-US'),
+        description : req.body.description
+      }
+    );
+    return res.send(JSON.parse('{"message" : "Successful"}'));
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 router.delete("/maintenance/:id", async (req, res) => {
   try {
     const deleteMaintenance = await maintenance.deleteOne({ _id: req.params.id });
